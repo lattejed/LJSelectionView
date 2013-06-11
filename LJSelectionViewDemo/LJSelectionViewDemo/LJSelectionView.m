@@ -28,12 +28,50 @@
     }
     return self;
 }
-/*
-- (BOOL)acceptsFirstResponder; // TODO: test that we really need this? does it work properly?
+
+#pragma mark - Selection rect view and subview handling
+
+- (void)addSelectionRectView:(LJSelectionRectView *)aSelectionRectView;
 {
-    return YES;
+    if ([[self subviews] containsObject:_selectionRectView]) {
+        [_selectionRectView removeFromSuperview];
+    }
+    self.selectionRectView = aSelectionRectView;
+    [super addSubview:(NSView *)_selectionRectView positioned:NSWindowAbove relativeTo:nil];
 }
-*/
+
+- (void)addSubViewRelativeToOverlay:(NSView *)view;
+{
+    if (!_selectionRectView) {
+        NSString* res = @"An instance of LJSelectionRectView needs to be added to LJSelectionView before other subviews are added.";
+        NSException* exception = [NSException exceptionWithName:@"NoSelectionRectViewException"
+                                                         reason:res
+                                                       userInfo:nil];
+        @throw exception;
+    }
+    [super addSubview:view positioned:NSWindowBelow relativeTo:(NSView *)_selectionRectView];
+}
+
+- (void)addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView;
+{
+    NSString* res = @"Only add subviews to this view with the addSubViewRelativeToOverlay: method.";
+    NSException* exception = [NSException exceptionWithName:@"WrongMethodException"
+                                                     reason:res
+                                                   userInfo:nil];
+    @throw exception;
+}
+
+- (void)addSubview:(NSView *)aView;
+{
+    NSString* res = @"Only add subviews to this view with the addSubViewRelativeToOverlay: method.";
+    NSException* exception = [NSException exceptionWithName:@"WrongMethodException"
+                                                     reason:res
+                                                   userInfo:nil];
+    @throw exception;
+}
+
+#pragma mark - Mouse events
+
 - (void)mouseUp:(NSEvent *)theEvent;
 {
     NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];

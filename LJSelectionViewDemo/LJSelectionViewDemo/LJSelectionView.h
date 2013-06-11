@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class LJSelectionView;
+@class LJSelectionRectView;
 
 @protocol LJSelectionViewDelegate <NSObject>
 @required
@@ -25,5 +26,9 @@
 
 @property (nonatomic, unsafe_unretained) id<LJSelectionViewDelegate> delegate;
 @property (nonatomic, assign) BOOL canDragOutsideBounds;
+@property (nonatomic, strong) LJSelectionRectView* selectionRectView;
+
+- (void)addSelectionRectView:(LJSelectionRectView *)aSelectionRectView;
+- (void)addSubViewRelativeToOverlay:(NSView *)aView;
 
 @end
