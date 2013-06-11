@@ -10,6 +10,28 @@
 
 @implementation LJSelectionViewController
 
+#pragma mark - Selection management
+
+- (void)addViewToSelection:(NSView *)aView append:(BOOL)append;
+{
+    [[_undoManager prepareWithInvocationTarget:self] setSelectedSubviews:_selectedSubviews];
+    if (append) {
+        [_undoManager setActionName:NSLocalizedString(@"Add To Selection", @"")];
+        self.selectedSubviews = [_selectedSubviews arrayByAddingObject:aView];
+    }
+    else {
+        [_undoManager setActionName:NSLocalizedString(@"Select", @"")];
+        self.selectedSubviews = [NSArray arrayWithObject:aView];
+    }
+}
+
+- (void)clearSelection;
+{
+    [[_undoManager prepareWithInvocationTarget:self] setSelectedSubviews:_selectedSubviews];
+    [_undoManager setActionName:NSLocalizedString(@"Clear Selection", @"")];
+    self.selectedSubviews = nil;
+}
+
 #pragma mark - LJSelectionViewDelegate
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point;

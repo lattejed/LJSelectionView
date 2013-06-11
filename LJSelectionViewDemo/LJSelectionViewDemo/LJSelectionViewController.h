@@ -19,5 +19,9 @@ typedef enum {
 @property (nonatomic, assign) BOOL shouldManageSelectionUndo;
 @property (nonatomic, unsafe_unretained) NSUndoManager* undoManager;
 @property (nonatomic, assign) kSelectionBehavior selectionBehavior;
+@property (nonatomic, strong) NSArray* selectedSubviews;
+
+- (void)addViewToSelection:(NSView *)aView append:(BOOL)append;
+- (void)clearSelection;
 
 @end
