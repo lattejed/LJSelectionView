@@ -36,7 +36,9 @@
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point;
 {
-
+    for (NSView* views in [_selectionView subviews]) {
+        
+    }
 }
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point;

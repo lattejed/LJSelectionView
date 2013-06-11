@@ -70,6 +70,15 @@
     @throw exception;
 }
 
+- (NSArray *)subviews;
+{
+    NSMutableArray* array = [_subviews mutableCopy];
+    if (_selectionRectView) {
+        [array removeObject:_selectionRectView];
+    }
+    return [array copy];
+}
+
 #pragma mark - Mouse events
 
 - (void)mouseUp:(NSEvent *)theEvent;
