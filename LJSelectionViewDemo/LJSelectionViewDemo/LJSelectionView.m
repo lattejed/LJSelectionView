@@ -10,6 +10,7 @@
 
 @implementation LJSelectionView
 
+/*
 - (void)dealloc;
 {
 #if __has_feature(objc_arc)
@@ -18,30 +19,34 @@
     [super dealloc];
 #endif
 }
+*/
 
+- (id)initWithFrame:(NSRect)frameRect;
+{
+    if (self = [self initWithFrame:frameRect]) {
+
+    }
+    return self;
+}
+/*
 - (BOOL)acceptsFirstResponder; // TODO: test that we really need this? does it work properly?
 {
     return YES;
 }
-
-- (void)mouseUp:(NSEvent *)theEvent
+*/
+- (void)mouseUp:(NSEvent *)theEvent;
 {
-    /*
     NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    if ([_delegate respondsToSelector:@selector(boardViewSingleClick:atPoint:)]) {
-        [_delegate boardViewSingleClick:self atPoint:point];
-    }
     if([theEvent clickCount] == 2) {
-        if ([_delegate respondsToSelector:@selector(boardViewDoubleClick:atPoint:)]) {
-            [_delegate boardViewDoubleClick:self atPoint:point];
-        }
+        [_delegate selectionView:self didDoubleClickatPoint:point];
     }
-     */
+    else {
+        [_delegate selectionView:self didSingleClickAtPoint:point];
+    }
 }
 
 - (void)mouseDragged:(NSEvent *)theEvent;
 {
-    /*
     NSPoint mouseStart = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     NSPoint mouseCurrentLoc = mouseStart;
     NSPoint mouseLastLoc = mouseStart;
@@ -53,25 +58,18 @@
         delta = NSMakePoint((mouseCurrentLoc.x-mouseLastLoc.x), (mouseCurrentLoc.y-mouseLastLoc.y));
         mouseLastLoc = mouseCurrentLoc;
         if ([theEvent type] == NSLeftMouseUp) {
-            if ([_delegate respondsToSelector:@selector(boardViewDidFinishDrag:fromPoint:toPoint:delta:flags:)]) {
-                [_delegate boardViewDidFinishDrag:self fromPoint:mouseStart toPoint:mouseCurrentLoc delta:delta flags:[theEvent modifierFlags]];
-            }
+            [_delegate selectionView:self didFinishDragFromPoint:mouseStart toPoint:mouseCurrentLoc delta:delta flags:[theEvent modifierFlags]];
             break;
         }
         else {
-            if ([_delegate respondsToSelector:@selector(boardViewShouldDrag:fromPoint:toPoint:delta:flags:)]) {
-                if ([self mouse:mouseCurrentLoc inRect:[self bounds]]) {
-                    if (![_delegate boardViewShouldDrag:self fromPoint:mouseStart toPoint:mouseCurrentLoc delta:delta flags:[theEvent modifierFlags]]) {
-                        break;
-                    }
-                }
+            if (!_canDragOutsideBounds && ![self mouse:mouseCurrentLoc inRect:[self bounds]]) {
+                continue;
             }
-            else {
+            if (![_delegate selectionView:self shouldDragFromPoint:mouseStart toPoint:mouseCurrentLoc delta:delta flags:[theEvent modifierFlags]]) {
                 break;
             }
         }
     }
-     */
 }
 
 @end

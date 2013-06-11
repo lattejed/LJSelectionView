@@ -15,14 +15,15 @@
 - (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point;
 - (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point;
 - (BOOL)selectionView:(LJSelectionView *)aSelectionView shouldDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
-- (void)selectionView:(LJSelectionView *)aSelectionView shouldFinishDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
+- (void)selectionView:(LJSelectionView *)aSelectionView didFinishDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
 
-@optional
-//
+//@optional
+
 @end
 
 @interface LJSelectionView : NSView
 
 @property (nonatomic, unsafe_unretained) id<LJSelectionViewDelegate> delegate;
+@property (nonatomic, assign) BOOL canDragOutsideBounds;
 
 @end
