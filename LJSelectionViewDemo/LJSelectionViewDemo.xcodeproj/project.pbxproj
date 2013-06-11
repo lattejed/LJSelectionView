@@ -17,6 +17,9 @@
 		3464A80E1767087E00C3815B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3464A7EE1767087D00C3815B /* Cocoa.framework */; };
 		3464A8161767087E00C3815B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3464A8141767087E00C3815B /* InfoPlist.strings */; };
 		3464A8191767087E00C3815B /* LJSelectionViewDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A8181767087E00C3815B /* LJSelectionViewDemoTests.m */; };
+		3464A82417670B9C00C3815B /* LJSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A82317670B9C00C3815B /* LJSelectionView.m */; };
+		3464A827176711CD00C3815B /* LJSelectionRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A826176711CD00C3815B /* LJSelectionRectView.m */; };
+		3464A82A176718D600C3815B /* LJSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A829176718D600C3815B /* LJSelectionViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,12 @@
 		3464A8151767087E00C3815B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3464A8171767087E00C3815B /* LJSelectionViewDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LJSelectionViewDemoTests.h; sourceTree = "<group>"; };
 		3464A8181767087E00C3815B /* LJSelectionViewDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LJSelectionViewDemoTests.m; sourceTree = "<group>"; };
+		3464A82217670B9C00C3815B /* LJSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSelectionView.h; sourceTree = "<group>"; };
+		3464A82317670B9C00C3815B /* LJSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionView.m; sourceTree = "<group>"; };
+		3464A825176711CD00C3815B /* LJSelectionRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSelectionRectView.h; sourceTree = "<group>"; };
+		3464A826176711CD00C3815B /* LJSelectionRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionRectView.m; sourceTree = "<group>"; };
+		3464A828176718D600C3815B /* LJSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSelectionViewController.h; sourceTree = "<group>"; };
+		3464A829176718D600C3815B /* LJSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +125,12 @@
 			children = (
 				3464A8001767087D00C3815B /* LJAppDelegate.h */,
 				3464A8011767087D00C3815B /* LJAppDelegate.m */,
+				3464A828176718D600C3815B /* LJSelectionViewController.h */,
+				3464A829176718D600C3815B /* LJSelectionViewController.m */,
+				3464A82217670B9C00C3815B /* LJSelectionView.h */,
+				3464A82317670B9C00C3815B /* LJSelectionView.m */,
+				3464A825176711CD00C3815B /* LJSelectionRectView.h */,
+				3464A826176711CD00C3815B /* LJSelectionRectView.m */,
 				3464A8031767087E00C3815B /* MainMenu.xib */,
 				3464A7F51767087D00C3815B /* Supporting Files */,
 			);
@@ -264,6 +279,9 @@
 			files = (
 				3464A7FB1767087D00C3815B /* main.m in Sources */,
 				3464A8021767087D00C3815B /* LJAppDelegate.m in Sources */,
+				3464A82417670B9C00C3815B /* LJSelectionView.m in Sources */,
+				3464A827176711CD00C3815B /* LJSelectionRectView.m in Sources */,
+				3464A82A176718D600C3815B /* LJSelectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +399,7 @@
 		3464A81D1767087E00C3815B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LJSelectionViewDemo/LJSelectionViewDemo-Prefix.pch";
@@ -393,6 +412,7 @@
 		3464A81E1767087E00C3815B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LJSelectionViewDemo/LJSelectionViewDemo-Prefix.pch";
@@ -406,6 +426,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LJSelectionViewDemo.app/Contents/MacOS/LJSelectionViewDemo";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -421,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/LJSelectionViewDemo.app/Contents/MacOS/LJSelectionViewDemo";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = "\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

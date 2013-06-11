@@ -2,18 +2,14 @@
 //  LJAppDelegate.m
 //  LJSelectionViewDemo
 //
-//  Created by Matthew Smith on 6/11/56 BE.
-//  Copyright (c) 2556 lattejed.com. All rights reserved.
+//  Created by Matthew Smith on 6/11/13.
+//  Copyright (c) 2013 lattejed.com. All rights reserved.
 //
 
 #import "LJAppDelegate.h"
 
 @implementation LJAppDelegate
 
-- (void)dealloc
-{
-    [super dealloc];
-}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
