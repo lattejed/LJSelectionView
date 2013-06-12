@@ -34,14 +34,16 @@
 
 #pragma mark - LJSelectionViewDelegate
 
-- (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point;
+- (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point flags:(NSUInteger)flags;
 {
-    for (NSView* views in [_selectionView subviews]) {
-        
+    for (NSView* view in [_selectionView subviews]) {
+        if (NSPointInRect(point, [view frame])) {
+            
+        }
     }
 }
 
-- (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point;
+- (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point flags:(NSUInteger)flags;
 {
 
 }

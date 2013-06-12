@@ -85,10 +85,10 @@
 {
     NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     if([theEvent clickCount] == 2) {
-        [_delegate selectionView:self didDoubleClickatPoint:point];
+        [_delegate selectionView:self didDoubleClickatPoint:point flags:[theEvent modifierFlags]];
     }
     else {
-        [_delegate selectionView:self didSingleClickAtPoint:point];
+        [_delegate selectionView:self didSingleClickAtPoint:point flags:[theEvent modifierFlags]];
     }
 }
 
