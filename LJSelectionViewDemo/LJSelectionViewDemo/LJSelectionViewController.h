@@ -14,6 +14,11 @@ typedef enum {
     kSelectionBehaviorPartial
 } kSelectionBehavior;
 
+typedef enum {
+    kDragTypeNone,
+    kDragTypeSelect
+} kDragType;
+
 @class LJSelectionView;
 
 @interface LJSelectionViewController : NSObject <LJSelectionViewDelegate>
@@ -22,9 +27,14 @@ typedef enum {
 @property (nonatomic, assign) BOOL shouldManageSelectionUndo;
 @property (nonatomic, unsafe_unretained) NSUndoManager* undoManager;
 @property (nonatomic, assign) kSelectionBehavior selectionBehavior;
+@property (nonatomic, assign) kDragType dragType;
 @property (nonatomic, strong) NSSet* selectedSubviews;
 
 - (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
 - (void)clearSelection;
+
+// Example actions
+- (IBAction)addView:(id)sender;
+- (IBAction)removeView:(id)sender;
 
 @end

@@ -21,10 +21,21 @@
 {
     self = [super init];
     if (self) {
-        // TODO: test
         _selectionBehavior = kSelectionBehaviorPartial;
+        _dragType = kDragTypeNone;
     }
     return self;
+}
+
+// Example actions
+- (IBAction)addView:(id)sender;
+{
+
+}
+
+- (IBAction)removeView:(id)sender;
+{
+
 }
 
 #pragma mark - Selection management
@@ -69,26 +80,35 @@
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point flags:(NSUInteger)flags;
 {
-    //
+    // Optional protocol method to handle single click in the view
 }
 
 - (BOOL)selectionView:(LJSelectionView *)aSelectionView shouldDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
 {
-    //
+    if (_dragType == kDragTypeNone) {
+        
+        // If you want other drag options besides selection in your view, you can switch between drag types here.
+        _dragType = kDragTypeSelect;
+    }
+    
+    // Returning NO in this method prevents the drag from continuting.
     return YES;
 }
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didFinishDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
 {
-    NSSet* views = [self viewsInRect:NSMakeRect(p1.x, p1.y, p2.x+p1.x, p2.y+p1.y)];
-    if ([views count]) {
-        if (flags & NSShiftKeyMask) {
-            [self addViewsToSelection:views append:YES];
-        }
-        else {
-            [self addViewsToSelection:views append:NO];
+    if (_dragType == kDragTypeSelect) {
+        NSSet* views = [self viewsInRect:NSMakeRect(p1.x, p1.y, p2.x+p1.x, p2.y+p1.y)];
+        if ([views count]) {
+            if (flags & NSShiftKeyMask) {
+                [self addViewsToSelection:views append:YES];
+            }
+            else {
+                [self addViewsToSelection:views append:NO];
+            }
         }
     }
+    _dragType = kDragTypeNone;
 }
 
 #pragma mark - Private methods

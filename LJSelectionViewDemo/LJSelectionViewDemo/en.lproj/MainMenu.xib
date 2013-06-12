@@ -1305,37 +1305,37 @@
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
-						<object class="NSCustomView" id="630106582">
+						<object class="NSCustomView" id="67536748">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">274</int>
 							<array class="NSMutableArray" key="NSSubviews"/>
 							<string key="NSFrame">{{20, 49}, {440, 291}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="63038805"/>
+							<reference key="NSNextKeyView" ref="471303789"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<string key="NSClassName">LJSelectionView</string>
 						</object>
-						<object class="NSButton" id="63038805">
+						<object class="NSButton" id="471303789">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{20, 19}, {25, 23}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
+							<reference key="NSNextKeyView" ref="966030017"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="242022449">
+							<object class="NSButtonCell" key="NSCell" id="772572464">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">Gradient Button</string>
-								<object class="NSFont" key="NSSupport" id="659747855">
+								<object class="NSFont" key="NSSupport" id="443562072">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
 									<int key="NSfFlags">1044</int>
 								</object>
 								<string key="NSCellIdentifier">_NS:22</string>
-								<reference key="NSControlView" ref="63038805"/>
+								<reference key="NSControlView" ref="471303789"/>
 								<int key="NSButtonFlags">-2033958912</int>
 								<int key="NSButtonFlags2">162</int>
 								<object class="NSCustomResource" key="NSNormalImage">
@@ -1349,7 +1349,7 @@
 							</object>
 							<bool key="NSAllowsLogicalLayoutDirection">NO</bool>
 						</object>
-						<object class="NSButton" id="30212047">
+						<object class="NSButton" id="966030017">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{53, 19}, {25, 23}}</string>
@@ -1357,13 +1357,13 @@
 							<reference key="NSWindow"/>
 							<string key="NSReuseIdentifierKey">_NS:22</string>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="124296383">
+							<object class="NSButtonCell" key="NSCell" id="477283710">
 								<int key="NSCellFlags">-2080374784</int>
 								<int key="NSCellFlags2">134217728</int>
 								<string key="NSContents">Gradient Button</string>
-								<reference key="NSSupport" ref="659747855"/>
+								<reference key="NSSupport" ref="443562072"/>
 								<string key="NSCellIdentifier">_NS:22</string>
-								<reference key="NSControlView" ref="30212047"/>
+								<reference key="NSControlView" ref="966030017"/>
 								<int key="NSButtonFlags">-2033958912</int>
 								<int key="NSButtonFlags2">162</int>
 								<object class="NSCustomResource" key="NSNormalImage">
@@ -1381,13 +1381,13 @@
 					<string key="NSFrameSize">{480, 360}</string>
 					<reference key="NSSuperview"/>
 					<reference key="NSWindow"/>
-					<reference key="NSNextKeyView" ref="630106582"/>
+					<reference key="NSNextKeyView" ref="67536748"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
-			<object class="NSCustomObject" id="479867408">
+			<object class="NSCustomObject" id="219824650">
 				<string key="NSClassName">LJSelectionViewController</string>
 			</object>
 			<object class="NSCustomObject" id="976324537">
@@ -2082,10 +2082,34 @@
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">selectionView</string>
-						<reference key="source" ref="479867408"/>
-						<reference key="destination" ref="630106582"/>
+						<reference key="source" ref="219824650"/>
+						<reference key="destination" ref="67536748"/>
 					</object>
 					<int key="connectionID">545</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">addView:</string>
+						<reference key="source" ref="219824650"/>
+						<reference key="destination" ref="471303789"/>
+					</object>
+					<int key="connectionID">550</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removeView:</string>
+						<reference key="source" ref="219824650"/>
+						<reference key="destination" ref="966030017"/>
+					</object>
+					<int key="connectionID">551</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="67536748"/>
+						<reference key="destination" ref="219824650"/>
+					</object>
+					<int key="connectionID">552</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -2612,9 +2636,9 @@
 						<int key="objectID">372</int>
 						<reference key="object" ref="439893737"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="630106582"/>
-							<reference ref="63038805"/>
-							<reference ref="30212047"/>
+							<reference ref="67536748"/>
+							<reference ref="471303789"/>
+							<reference ref="966030017"/>
 						</array>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -3093,40 +3117,40 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">536</int>
-						<reference key="object" ref="479867408"/>
+						<reference key="object" ref="219824650"/>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">537</int>
-						<reference key="object" ref="630106582"/>
+						<reference key="object" ref="67536748"/>
 						<array class="NSMutableArray" key="children"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">546</int>
-						<reference key="object" ref="63038805"/>
+						<reference key="object" ref="471303789"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="242022449"/>
+							<reference ref="772572464"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">547</int>
-						<reference key="object" ref="242022449"/>
-						<reference key="parent" ref="63038805"/>
+						<reference key="object" ref="772572464"/>
+						<reference key="parent" ref="471303789"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">548</int>
-						<reference key="object" ref="30212047"/>
+						<reference key="object" ref="966030017"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="124296383"/>
+							<reference ref="477283710"/>
 						</array>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">549</int>
-						<reference key="object" ref="124296383"/>
-						<reference key="parent" ref="30212047"/>
+						<reference key="object" ref="477283710"/>
+						<reference key="parent" ref="966030017"/>
 					</object>
 				</array>
 			</object>
@@ -3296,7 +3320,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">549</int>
+			<int key="maxID">552</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -3322,6 +3346,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">LJSelectionView</string>
 					<string key="superclassName">NSView</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">delegate</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">delegate</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">delegate</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/LJSelectionView.h</string>
@@ -3330,6 +3365,20 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">LJSelectionViewController</string>
 					<string key="superclassName">NSObject</string>
+					<dictionary class="NSMutableDictionary" key="actions">
+						<string key="addView:">id</string>
+						<string key="removeView:">id</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="actionInfosByName">
+						<object class="IBActionInfo" key="addView:">
+							<string key="name">addView:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="removeView:">
+							<string key="name">removeView:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</dictionary>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">selectionView</string>
 						<string key="NS.object.0">LJSelectionView</string>

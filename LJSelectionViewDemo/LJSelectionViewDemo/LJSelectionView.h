@@ -23,7 +23,7 @@
 
 @interface LJSelectionView : NSView
 
-@property (nonatomic, unsafe_unretained) id<LJSelectionViewDelegate> delegate;
+@property (nonatomic, unsafe_unretained) IBOutlet id<LJSelectionViewDelegate> delegate;
 @property (nonatomic, assign) BOOL canDragOutsideBounds;
 @property (nonatomic, strong) LJSelectionRectView* selectionRectView;
 
