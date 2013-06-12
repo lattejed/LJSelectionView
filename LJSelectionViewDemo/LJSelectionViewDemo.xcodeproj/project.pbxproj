@@ -20,6 +20,7 @@
 		3464A82417670B9C00C3815B /* LJSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A82317670B9C00C3815B /* LJSelectionView.m */; };
 		3464A827176711CD00C3815B /* LJSelectionRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A826176711CD00C3815B /* LJSelectionRectView.m */; };
 		3464A82A176718D600C3815B /* LJSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A829176718D600C3815B /* LJSelectionViewController.m */; };
+		34CDCF4B17682F5E00EEFD18 /* Lenna.png in Resources */ = {isa = PBXBuildFile; fileRef = 34CDCF4A17682F5E00EEFD18 /* Lenna.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		3464A826176711CD00C3815B /* LJSelectionRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionRectView.m; sourceTree = "<group>"; };
 		3464A828176718D600C3815B /* LJSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSelectionViewController.h; sourceTree = "<group>"; };
 		3464A829176718D600C3815B /* LJSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionViewController.m; sourceTree = "<group>"; };
+		34CDCF4A17682F5E00EEFD18 /* Lenna.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lenna.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 		3464A7F51767087D00C3815B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				34CDCF4A17682F5E00EEFD18 /* Lenna.png */,
 				3464A7F61767087D00C3815B /* LJSelectionViewDemo-Info.plist */,
 				3464A7F71767087D00C3815B /* InfoPlist.strings */,
 				3464A7FA1767087D00C3815B /* main.m */,
@@ -243,6 +246,7 @@
 				3464A7F91767087D00C3815B /* InfoPlist.strings in Resources */,
 				3464A7FF1767087D00C3815B /* Credits.rtf in Resources */,
 				3464A8051767087E00C3815B /* MainMenu.xib in Resources */,
+				34CDCF4B17682F5E00EEFD18 /* Lenna.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,6 +477,7 @@
 				3464A81E1767087E00C3815B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3464A81F1767087E00C3815B /* Build configuration list for PBXNativeTarget "LJSelectionViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -481,6 +486,7 @@
 				3464A8211767087E00C3815B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

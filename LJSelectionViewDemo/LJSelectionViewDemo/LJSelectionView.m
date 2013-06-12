@@ -23,7 +23,7 @@
 
 - (id)initWithFrame:(NSRect)frameRect;
 {
-    if (self = [self initWithFrame:frameRect]) {
+    if (self = [super initWithFrame:frameRect]) {
 
     }
     return self;
