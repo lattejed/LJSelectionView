@@ -133,7 +133,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 
 #pragma mark - Mouse events
 
-- (void)mouseDown:(NSEvent *)theEvent;
+- (void)mouseUp:(NSEvent *)theEvent;
 {
     NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     if([theEvent clickCount] == 2) {
