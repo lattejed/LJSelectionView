@@ -119,11 +119,16 @@
     return _selectionRect;
 }
 
+- (NSSet *)selectionViewSelectedItems;
+{
+    return _selectedItems;
+}
+
 #pragma mark - Private methods
 
 - (NSView *)viewForPoint:(NSPoint)point;
 {
-    for (NSView* view in [_selectionView subviews]) {
+    for (NSView* view in [_selectionView selectableSubviews]) {
         if (NSPointInRect(point, [view frame])) {
             return view;
         }
@@ -134,7 +139,7 @@
 - (NSSet *)viewsInRect:(NSRect)rect;
 {
     NSSet* views = [NSSet set];
-    for (NSView* view in [_selectionView subviews]) {
+    for (NSView* view in [_selectionView selectableSubviews]) {
         if ( (_selectionBehavior == kSelectionBehaviorPartial   && NSIntersectsRect(view.frame, rect)) ||
              (_selectionBehavior == kSelectionBehaviorFull      && NSContainsRect(view.frame, rect))) {
             views = [views setByAddingObject:view];

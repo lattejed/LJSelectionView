@@ -25,20 +25,24 @@
 
 // Example actions
 - (IBAction)addView:(id)sender;
-{
-    //LJSelectionViewItem* item = [[LJSelectionViewItem alloc] initWithFrame:NSMakeRect(100, 100, 100, 100)];
-    //[_selectionView addSelectableSubview:item];
+{  
+    int originX = arc4random() % (int)(_selectionView.frame.size.width  - 200);
+    int originY = arc4random() % (int)(_selectionView.frame.size.height - 200);
+
+    NSImageView* item = [[NSImageView alloc] initWithFrame:NSMakeRect(originX, originY, 200, 200)];
+    item.image = [NSImage imageNamed:@"Lenna.png"];
+    [_selectionView addSelectableSubview:item];
 #if !__has_feature(objc_arc)
-    //[item release];
+    [item release];
 #endif
 }
 
 - (IBAction)removeView:(id)sender;
 {
     NSSet* selectedItems = _selectionViewController.selectedItems;
-    //for (LJSelectionViewItem* item in selectedItems) {
-    //    [item removeFromSuperview];
-    //}
+    for (NSView* item in selectedItems) {
+        [item removeFromSuperview];
+    }
 }
 
 @end

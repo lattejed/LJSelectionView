@@ -20,6 +20,7 @@
 		3464A82417670B9C00C3815B /* LJSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A82317670B9C00C3815B /* LJSelectionView.m */; };
 		3464A827176711CD00C3815B /* LJSelectionRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A826176711CD00C3815B /* LJSelectionRectView.m */; };
 		3464A82A176718D600C3815B /* LJSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3464A829176718D600C3815B /* LJSelectionViewController.m */; };
+		3498F927176AE5D000114C57 /* LJSelectionItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3498F926176AE5D000114C57 /* LJSelectionItemView.m */; };
 		34CDCF4B17682F5E00EEFD18 /* Lenna.png in Resources */ = {isa = PBXBuildFile; fileRef = 34CDCF4A17682F5E00EEFD18 /* Lenna.png */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +60,8 @@
 		3464A826176711CD00C3815B /* LJSelectionRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionRectView.m; sourceTree = "<group>"; };
 		3464A828176718D600C3815B /* LJSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSelectionViewController.h; sourceTree = "<group>"; };
 		3464A829176718D600C3815B /* LJSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionViewController.m; sourceTree = "<group>"; };
+		3498F925176AE5D000114C57 /* LJSelectionItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJSelectionItemView.h; sourceTree = "<group>"; };
+		3498F926176AE5D000114C57 /* LJSelectionItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJSelectionItemView.m; sourceTree = "<group>"; };
 		34CDCF4A17682F5E00EEFD18 /* Lenna.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lenna.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,6 +134,8 @@
 				3464A829176718D600C3815B /* LJSelectionViewController.m */,
 				3464A82217670B9C00C3815B /* LJSelectionView.h */,
 				3464A82317670B9C00C3815B /* LJSelectionView.m */,
+				3498F925176AE5D000114C57 /* LJSelectionItemView.h */,
+				3498F926176AE5D000114C57 /* LJSelectionItemView.m */,
 				3464A825176711CD00C3815B /* LJSelectionRectView.h */,
 				3464A826176711CD00C3815B /* LJSelectionRectView.m */,
 				3464A8031767087E00C3815B /* MainMenu.xib */,
@@ -286,6 +291,7 @@
 				3464A82417670B9C00C3815B /* LJSelectionView.m in Sources */,
 				3464A827176711CD00C3815B /* LJSelectionRectView.m in Sources */,
 				3464A82A176718D600C3815B /* LJSelectionViewController.m in Sources */,
+				3498F927176AE5D000114C57 /* LJSelectionItemView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

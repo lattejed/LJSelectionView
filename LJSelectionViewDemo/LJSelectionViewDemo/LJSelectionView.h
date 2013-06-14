@@ -30,6 +30,12 @@
 @property (nonatomic, assign) BOOL canDragOutsideBounds;
 @property (nonatomic, assign) BOOL drawsItemHighlights;
 
+@property (nonatomic, assign) BOOL showDashedLine;
+@property (nonatomic, assign) CGFloat lineWidth;
+@property (nonatomic, assign) CGFloat lineDashWidth;
+@property (nonatomic, strong) NSColor* lineColor1;
+@property (nonatomic, strong) NSColor* lineColor2;
+
 - (void)addSelectableSubview:(NSView *)aView;
 - (void)addSelectionRectView:(LJSelectionRectView *)aView;
 - (NSArray *)selectableSubviews;

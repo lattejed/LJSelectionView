@@ -21,8 +21,14 @@
 - (id)initWithFrame:(NSRect)frameRect;
 {
     if (self = [super initWithFrame:frameRect]) {
-        _canDragOutsideBounds = NO;
-        _drawsItemHighlights = NO;
+        _canDragOutsideBounds = YES;
+        _drawsItemHighlights = YES;
+        
+        _showDashedLine = YES;
+        _lineWidth = 2.0f;
+        _lineDashWidth = 12.0f;
+        self.lineColor1 = [NSColor blackColor];
+        self.lineColor2 = [NSColor whiteColor];
     }
     return self;
 }
@@ -57,7 +63,17 @@
     if ([_delegate respondsToSelector:@selector(selectionViewSelectedItems)]) {
         NSSet* selectedItems = [_delegate selectionViewSelectedItems];
         for (NSView* item in selectedItems) {
-            //draw line around view
+            NSBezierPath* path = [NSBezierPath bezierPathWithRect:NSInsetRect(item.frame, -_lineWidth/2.0f, -_lineWidth/2.0f)];
+            
+            [_lineColor1 setStroke];
+            [path setLineWidth:_lineWidth];
+            [path stroke];
+            
+            if (_showDashedLine) {
+                [_lineColor2 setStroke];
+                [path setLineDash:&_lineDashWidth count:1 phase:1.0f];
+                [path stroke];
+            }
         }
     }
 }
