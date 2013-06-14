@@ -12,6 +12,7 @@
 
 - (NSView *)viewForPoint:(NSPoint)point;
 - (NSSet *)viewsInRect:(NSRect)rect;
+- (NSRect)rectForPoint:(NSPoint)p1 andPoint:(NSPoint)p2;
 
 @end
 
@@ -83,11 +84,13 @@
     
     switch (_dragType) {
         case kDragTypeSelect:
-            _selectionRect = NSMakeRect(p1.x, p1.y, p2.x+p1.x, p2.y+p1.y);
+            _selectionRect = [self rectForPoint:p1 andPoint:p2];
             break;
         default:
             break;
     }
+    
+    [_selectionView setNeedsDisplay:YES];
     
     // Returning NO in this method prevents the drag from continuting.
     return YES;
@@ -96,7 +99,7 @@
 - (void)selectionView:(LJSelectionView *)aSelectionView didFinishDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
 {
     if (_dragType == kDragTypeSelect) {
-        NSSet* views = [self viewsInRect:NSMakeRect(p1.x, p1.y, p2.x+p1.x, p2.y+p1.y)];
+        NSSet* views = [self viewsInRect:[self rectForPoint:p1 andPoint:p2]];
         if ([views count]) {
             if (flags & NSShiftKeyMask) {
                 [self addViewsToSelection:views append:YES];
@@ -108,6 +111,7 @@
         _selectionRect = NSZeroRect;
     }
     _dragType = kDragTypeNone;
+    [_selectionView setNeedsDisplay:YES];
 }
 
 - (NSRect)selectionViewRectForSelection;
@@ -137,6 +141,17 @@
         }
     }
     return views;
+}
+
+- (NSRect)rectForPoint:(NSPoint)p1 andPoint:(NSPoint)p2;
+{
+    NSPoint origin;
+    NSPoint otherPoint;
+    origin.x        = MIN(p1.x, p2.x);
+    origin.y        = MIN(p1.y, p2.y);
+    otherPoint.x    = MAX(p1.x, p2.x);
+    otherPoint.y    = MAX(p1.y, p2.y);
+    return NSMakeRect(origin.x, origin.y, otherPoint.x-origin.x, otherPoint.y-origin.y);
 }
 
 @end

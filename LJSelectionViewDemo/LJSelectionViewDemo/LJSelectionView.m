@@ -9,24 +9,13 @@
 #import "LJSelectionView.h"
 #import "LJSelectionRectView.h"
 
-//@interface LJSelectionView ()
+@interface LJSelectionView ()
 
-//- (void)addViewRespectingHierarchy:(NSView *)aView;
+- (void)drawSelectionRect;
 
-//@end
+@end
 
 @implementation LJSelectionView
-
-/*
-- (void)dealloc;
-{
-#if __has_feature(objc_arc)
-    //
-#else
-    [super dealloc];
-#endif
-}
-*/
 
 - (id)initWithFrame:(NSRect)frameRect;
 {
@@ -44,7 +33,19 @@
     }
 }
 
+- (void)drawRect:(NSRect)dirtyRect;
+{
+    [super drawRect:dirtyRect];
+    [self drawSelectionRect];
+}
+
 #pragma mark - Selection rect view and subview handling
+
+- (void)drawSelectionRect;
+{
+    NSRect rect = [_delegate selectionViewRectForSelection];
+    [_selectionRectView setFrame:rect];
+}
 
 - (void)addSelectableSubview:(NSView *)aView;
 {
