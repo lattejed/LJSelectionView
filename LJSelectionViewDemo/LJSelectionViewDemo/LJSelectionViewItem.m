@@ -10,6 +10,7 @@
 
 @implementation LJSelectionViewItem
 
+/*
 - (id)initWithFrame:(NSRect)frame
 {
     self = [super initWithFrame:frame];
@@ -19,10 +20,13 @@
     
     return self;
 }
+*/
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-    // Drawing code here.
+    [super drawRect:dirtyRect];
+    [[NSColor blackColor] setStroke];
+    [[NSBezierPath bezierPathWithRect:self.bounds] stroke];
 }
 
 @end

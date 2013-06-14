@@ -8,9 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class LJSelectionView;
+@class LJSelectionViewController;
+
 @interface LJAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (nonatomic, unsafe_unretained) IBOutlet NSWindow *window;
+@property (nonatomic, unsafe_unretained) IBOutlet LJSelectionView* selectionView;
+@property (nonatomic, unsafe_unretained) IBOutlet LJSelectionViewController* selectionViewController;
 
 - (IBAction)addView:(id)sender;
 - (IBAction)removeView:(id)sender;

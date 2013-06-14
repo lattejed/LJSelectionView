@@ -7,6 +7,8 @@
 //
 
 #import "LJAppDelegate.h"
+#import "LJSelectionView.h"
+#import "LJSelectionViewItem.h"
 
 @implementation LJAppDelegate
 
@@ -24,7 +26,11 @@
 // Example actions
 - (IBAction)addView:(id)sender;
 {
-    
+    LJSelectionViewItem* item = [[LJSelectionViewItem alloc] initWithFrame:NSMakeRect(100, 100, 100, 100)];
+    [_selectionView addSelectableSubview:item];
+#if !__has_feature(objc_arc)
+    [item release];
+#endif
 }
 
 - (IBAction)removeView:(id)sender;
