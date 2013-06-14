@@ -12,6 +12,7 @@
 @interface LJSelectionView ()
 
 - (void)drawSelectionRect;
+- (void)drawItemHighlights;
 
 @end
 
@@ -20,7 +21,8 @@
 - (id)initWithFrame:(NSRect)frameRect;
 {
     if (self = [super initWithFrame:frameRect]) {
-
+        _canDragOutsideBounds = NO;
+        _drawsItemHighlights = NO;
     }
     return self;
 }
@@ -36,6 +38,9 @@
 - (void)drawRect:(NSRect)dirtyRect;
 {
     [super drawRect:dirtyRect];
+    if (_drawsItemHighlights) {
+        [self drawItemHighlights];
+    }
     [self drawSelectionRect];
 }
 
@@ -45,6 +50,16 @@
 {
     NSRect rect = [_delegate selectionViewRectForSelection];
     [_selectionRectView setFrame:rect];
+}
+
+- (void)drawItemHighlights;
+{
+    if ([_delegate respondsToSelector:@selector(selectionViewSelectedItems)]) {
+        NSSet* selectedItems = [_delegate selectionViewSelectedItems];
+        for (NSView* item in selectedItems) {
+            //draw line around view
+        }
+    }
 }
 
 - (void)addSelectableSubview:(NSView *)aView;
@@ -84,7 +99,9 @@
 {
     NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     if([theEvent clickCount] == 2) {
-        [_delegate selectionView:self didDoubleClickatPoint:point flags:[theEvent modifierFlags]];
+        if ([_delegate respondsToSelector:@selector(selectionView:didDoubleClickatPoint:flags:)]) {
+            [_delegate selectionView:self didDoubleClickatPoint:point flags:[theEvent modifierFlags]];
+        }
     }
     else {
         [_delegate selectionView:self didSingleClickAtPoint:point flags:[theEvent modifierFlags]];

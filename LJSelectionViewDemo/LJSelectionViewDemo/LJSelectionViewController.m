@@ -33,25 +33,25 @@
 
 - (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
 {
-    [[_undoManager prepareWithInvocationTarget:self] setSelectedSubviews:_selectedSubviews];
+    [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
     if (append) {
-        if (!_selectedSubviews) {
-            self.selectedSubviews = [NSSet set];
+        if (!_selectedItems) {
+            self.selectedItems = [NSSet set];
         }
         [_undoManager setActionName:NSLocalizedString(@"Add To Selection", @"")];
-        self.selectedSubviews = [_selectedSubviews setByAddingObjectsFromSet:views];
+        self.selectedItems = [_selectedItems setByAddingObjectsFromSet:views];
     }
     else {
         [_undoManager setActionName:NSLocalizedString(@"Select", @"")];
-        self.selectedSubviews = [views copy];
+        self.selectedItems = [views copy];
     }
 }
 
 - (void)clearSelection;
 {
-    [[_undoManager prepareWithInvocationTarget:self] setSelectedSubviews:_selectedSubviews];
+    [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
     [_undoManager setActionName:NSLocalizedString(@"Clear Selection", @"")];
-    self.selectedSubviews = nil;
+    self.selectedItems = nil;
 }
 
 #pragma mark - LJSelectionViewDelegate

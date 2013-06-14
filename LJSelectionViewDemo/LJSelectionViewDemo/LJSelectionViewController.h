@@ -28,7 +28,7 @@ typedef enum {
 @property (nonatomic, strong) NSUndoManager* undoManager;
 @property (nonatomic, assign) kSelectionBehavior selectionBehavior;
 @property (nonatomic, assign) kDragType dragType;
-@property (nonatomic, strong) NSSet* selectedSubviews;
+@property (nonatomic, strong) NSSet* selectedItems;
 @property (nonatomic, assign) NSRect selectionRect;
 
 - (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;

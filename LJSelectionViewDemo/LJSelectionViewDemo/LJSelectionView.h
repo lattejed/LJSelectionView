@@ -20,6 +20,7 @@
 
 @optional
 - (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point flags:(NSUInteger)flags;
+- (NSSet *)selectionViewSelectedItems;
 @end
 
 @interface LJSelectionView : NSView
@@ -27,6 +28,7 @@
 @property (nonatomic, unsafe_unretained) IBOutlet id<LJSelectionViewDelegate> delegate;
 @property (nonatomic, strong) IBOutlet LJSelectionRectView* selectionRectView;
 @property (nonatomic, assign) BOOL canDragOutsideBounds;
+@property (nonatomic, assign) BOOL drawsItemHighlights;
 
 - (void)addSelectableSubview:(NSView *)aView;
 - (void)addSelectionRectView:(LJSelectionRectView *)aView;
