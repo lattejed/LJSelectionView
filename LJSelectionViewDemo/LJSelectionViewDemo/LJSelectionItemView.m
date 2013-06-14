@@ -22,10 +22,22 @@
     return self;
 }
 
+- (id)copyWithZone:(NSZone *)zone;
+{
+    LJSelectionItemView* aCopy =
+        [[[self class] allocWithZone:zone] initWithFrame:_frame];
+    aCopy->_showDashedLine = _showDashedLine;
+    aCopy->_lineWidth = _lineWidth;
+    aCopy->_lineDashWidth = _lineDashWidth;
+    aCopy.lineColor1 = [_lineColor1 copy];
+    aCopy.lineColor2 = [_lineColor2 copy];
+    return aCopy;
+}
+
 - (NSView *)hitTest:(NSPoint)aPoint;
 {
     /*
-     Ignore mouse events completely
+     * Ignore mouse events completely
      */
     return nil;
 }

@@ -10,6 +10,8 @@
 
 @interface LJSelectionViewController ()
 
+- (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
+- (void)clearSelection;
 - (NSView *)viewForPoint:(NSPoint)point;
 - (NSSet *)viewsInRect:(NSRect)rect;
 - (NSRect)rectForPoint:(NSPoint)p1 andPoint:(NSPoint)p2;
@@ -33,13 +35,27 @@
 
 - (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
 {
-    [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
+    /* 
+     * The selection behavior here is the same as Adobe Illustrator.
+     * If we are not appending, the passed in selection always replaces the current selection.
+     * If we are appending, the passed in selection *toggles* against the current selection,
+     * i.e., if we click (or draw a seleciton over) a currently selected item, that item is removed
+     * from the current selection and vice versa.
+     */
+    if (![_selectedItems isEqualToSet:views]) {
+        [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
+    }
     if (append) {
+        [_undoManager setActionName:NSLocalizedString(@"Add To Selection", @"")];
         if (!_selectedItems) {
             self.selectedItems = [NSSet set];
         }
-        [_undoManager setActionName:NSLocalizedString(@"Add To Selection", @"")];
-        self.selectedItems = [_selectedItems setByAddingObjectsFromSet:views];
+        NSMutableSet* selection = [_selectedItems mutableCopy];
+        NSMutableSet* intersect = [_selectedItems mutableCopy];
+        [intersect intersectSet:views];
+        [selection unionSet:views];
+        [selection minusSet:intersect];
+        self.selectedItems = [selection copy];
     }
     else {
         [_undoManager setActionName:NSLocalizedString(@"Select", @"")];
@@ -49,8 +65,10 @@
 
 - (void)clearSelection;
 {
-    [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
-    [_undoManager setActionName:NSLocalizedString(@"Clear Selection", @"")];
+    if (_selectedItems && [_selectedItems count] > 0) {
+        [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
+        [_undoManager setActionName:NSLocalizedString(@"Clear Selection", @"")];
+    }
     self.selectedItems = nil;
 }
 
@@ -59,14 +77,9 @@
 - (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point flags:(NSUInteger)flags;
 {
     NSView* view = [self viewForPoint:point];
-    if (view) {
-        if (flags & NSShiftKeyMask) {
-            [self addViewsToSelection:[NSSet setWithObject:view] append:YES];
-        }
-        else {
-            [self addViewsToSelection:[NSSet setWithObject:view] append:NO];
-        }
-    }
+    NSSet* selection = view ? [NSSet setWithObject:view] : [NSSet set];
+    [self addViewsToSelection:selection append:flags & NSShiftKeyMask ? YES : NO];
+    [_selectionView setNeedsDisplay:YES];
 }
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point flags:(NSUInteger)flags;
@@ -99,15 +112,8 @@
 - (void)selectionView:(LJSelectionView *)aSelectionView didFinishDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
 {
     if (_dragType == kDragTypeSelect) {
-        NSSet* views = [self viewsInRect:[self rectForPoint:p1 andPoint:p2]];
-        if ([views count]) {
-            if (flags & NSShiftKeyMask) {
-                [self addViewsToSelection:views append:YES];
-            }
-            else {
-                [self addViewsToSelection:views append:NO];
-            }
-        }
+        NSSet* selection = [self viewsInRect:[self rectForPoint:p1 andPoint:p2]];
+        [self addViewsToSelection:selection append:flags & NSShiftKeyMask ? YES : NO];
         _selectionRect = NSZeroRect;
     }
     _dragType = kDragTypeNone;
@@ -128,7 +134,7 @@
 
 - (NSView *)viewForPoint:(NSPoint)point;
 {
-    for (NSView* view in [_selectionView selectableSubviews]) {
+    for (NSView* view in [[_selectionView selectableSubviews] reverseObjectEnumerator]) {
         if (NSPointInRect(point, [view frame])) {
             return view;
         }

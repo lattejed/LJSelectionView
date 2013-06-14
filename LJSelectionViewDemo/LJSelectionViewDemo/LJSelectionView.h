@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class LJSelectionView;
+@class LJSelectionItemView;
 @class LJSelectionRectView;
 
 @protocol LJSelectionViewDelegate <NSObject>
@@ -27,14 +28,9 @@
 
 @property (nonatomic, unsafe_unretained) IBOutlet id<LJSelectionViewDelegate> delegate;
 @property (nonatomic, strong) IBOutlet LJSelectionRectView* selectionRectView;
+@property (nonatomic, strong) IBOutlet LJSelectionItemView* selectionItemViewPrototype;
 @property (nonatomic, assign) BOOL canDragOutsideBounds;
 @property (nonatomic, assign) BOOL drawsItemHighlights;
-
-@property (nonatomic, assign) BOOL showDashedLine;
-@property (nonatomic, assign) CGFloat lineWidth;
-@property (nonatomic, assign) CGFloat lineDashWidth;
-@property (nonatomic, strong) NSColor* lineColor1;
-@property (nonatomic, strong) NSColor* lineColor2;
 
 - (void)addSelectableSubview:(NSView *)aView;
 - (void)addSelectionRectView:(LJSelectionRectView *)aView;

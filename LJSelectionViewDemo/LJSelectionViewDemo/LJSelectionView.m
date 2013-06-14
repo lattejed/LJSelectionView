@@ -7,12 +7,14 @@
 //
 
 #import "LJSelectionView.h"
+#import "LJSelectionItemView.h"
 #import "LJSelectionRectView.h"
 
 @interface LJSelectionView ()
 
 - (void)drawSelectionRect;
 - (void)drawItemHighlights;
+- (void)removeHighlightViews;
 
 @end
 
@@ -23,12 +25,6 @@
     if (self = [super initWithFrame:frameRect]) {
         _canDragOutsideBounds = YES;
         _drawsItemHighlights = YES;
-        
-        _showDashedLine = YES;
-        _lineWidth = 2.0f;
-        _lineDashWidth = 12.0f;
-        self.lineColor1 = [NSColor blackColor];
-        self.lineColor2 = [NSColor whiteColor];
     }
     return self;
 }
@@ -44,13 +40,14 @@
 - (void)drawRect:(NSRect)dirtyRect;
 {
     [super drawRect:dirtyRect];
+    [self removeHighlightViews];
     if (_drawsItemHighlights) {
         [self drawItemHighlights];
     }
     [self drawSelectionRect];
 }
 
-#pragma mark - Selection rect view and subview handling
+#pragma mark - Subview and selection handling
 
 - (void)drawSelectionRect;
 {
@@ -63,17 +60,9 @@
     if ([_delegate respondsToSelector:@selector(selectionViewSelectedItems)]) {
         NSSet* selectedItems = [_delegate selectionViewSelectedItems];
         for (NSView* item in selectedItems) {
-            NSBezierPath* path = [NSBezierPath bezierPathWithRect:NSInsetRect(item.frame, -_lineWidth/2.0f, -_lineWidth/2.0f)];
-            
-            [_lineColor1 setStroke];
-            [path setLineWidth:_lineWidth];
-            [path stroke];
-            
-            if (_showDashedLine) {
-                [_lineColor2 setStroke];
-                [path setLineDash:&_lineDashWidth count:1 phase:1.0f];
-                [path stroke];
-            }
+            LJSelectionItemView* selectionItemView = [_selectionItemViewPrototype copy];
+            [selectionItemView setFrame:item.frame];
+            [super addSubview:selectionItemView positioned:NSWindowAbove relativeTo:item];
         }
     }
 }
@@ -103,10 +92,24 @@
 - (NSArray *)selectableSubviews;
 {
     NSMutableArray* array = [_subviews mutableCopy];
-    if (_selectionRectView) {
-        [array removeObject:_selectionRectView];
+    for (NSView* view in _subviews) {
+        if ([view isMemberOfClass:[LJSelectionItemView class]] ||
+            [view isMemberOfClass:[LJSelectionRectView class]]) {
+            [array removeObject:view];
+        }
     }
     return [array copy];
+}
+
+- (void)removeHighlightViews;
+{
+    NSMutableArray* array = [_subviews mutableCopy];
+    for (NSView* view in _subviews) {
+        if ([view isMemberOfClass:[LJSelectionItemView class]]) {
+            [array removeObject:view];
+        }
+    }
+    self.subviews = array;
 }
 
 #pragma mark - Mouse events

@@ -31,7 +31,4 @@ typedef enum {
 @property (nonatomic, strong) NSSet* selectedItems;
 @property (nonatomic, assign) NSRect selectionRect;
 
-- (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
-- (void)clearSelection;
-
 @end
