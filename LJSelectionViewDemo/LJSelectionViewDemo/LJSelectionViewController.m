@@ -12,6 +12,7 @@
 
 - (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
 - (void)clearSelection;
+- (void)pruneSelectionIfNecesary;
 - (NSView *)viewForPoint:(NSPoint)point;
 - (NSSet *)viewsInRect:(NSRect)rect;
 - (NSRect)rectForPoint:(NSPoint)p1 andPoint:(NSPoint)p2;
@@ -72,6 +73,14 @@
     self.selectedItems = nil;
 }
 
+- (void)pruneSelectionIfNecesary;
+{
+    NSMutableSet* intersection = [_selectedItems mutableCopy];
+    NSSet* views = [NSSet setWithArray:[_selectionView selectableSubviews]];
+    [intersection intersectSet:views];
+    self.selectedItems = [intersection copy];
+}
+
 #pragma mark - LJSelectionViewDelegate
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point flags:(NSUInteger)flags;
@@ -122,6 +131,12 @@
         _selectionRect = NSZeroRect;
     }
     _dragType = kDragTypeNone;
+    [_selectionView setNeedsDisplay:YES];
+}
+
+- (void)selectionViewDidUpdateSubviews;
+{
+    [self pruneSelectionIfNecesary];
     [_selectionView setNeedsDisplay:YES];
 }
 

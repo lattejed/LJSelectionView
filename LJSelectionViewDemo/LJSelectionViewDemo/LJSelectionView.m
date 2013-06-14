@@ -10,6 +10,8 @@
 #import "LJSelectionItemView.h"
 #import "LJSelectionRectView.h"
 
+static NSString* const kSubviewsKeypath = @"subviews";
+
 @interface LJSelectionView ()
 
 - (void)drawSelectionRect;
@@ -20,11 +22,20 @@
 
 @implementation LJSelectionView
 
+- (void)dealloc;
+{
+    [self removeObserver:self forKeyPath:kSubviewsKeypath];
+#if !__has_feature(objc_arc)
+    [super dealloc];
+#endif
+}
+
 - (id)initWithFrame:(NSRect)frameRect;
 {
     if (self = [super initWithFrame:frameRect]) {
         _canDragOutsideBounds = YES;
         _drawsItemHighlights = YES;
+        [self addObserver:self forKeyPath:kSubviewsKeypath options:0 context:NULL];
     }
     return self;
 }
@@ -48,6 +59,14 @@
 }
 
 #pragma mark - Subview and selection handling
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    
+    if ([keyPath isEqual:@"subviews"]) {
+        [_delegate selectionViewDidUpdateSubviews];
+    }
+    //[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
 
 - (void)drawSelectionRect;
 {
