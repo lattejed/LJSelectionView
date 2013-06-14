@@ -114,7 +114,7 @@
 
 #pragma mark - Mouse events
 
-- (void)mouseUp:(NSEvent *)theEvent;
+- (void)mouseDown:(NSEvent *)theEvent;
 {
     NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     if([theEvent clickCount] == 2) {

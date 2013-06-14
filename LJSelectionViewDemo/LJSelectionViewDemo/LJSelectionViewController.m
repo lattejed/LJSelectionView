@@ -39,7 +39,7 @@
      * The selection behavior here is the same as Adobe Illustrator.
      * If we are not appending, the passed in selection always replaces the current selection.
      * If we are appending, the passed in selection *toggles* against the current selection,
-     * i.e., if we click (or draw a seleciton over) a currently selected item, that item is removed
+     * i.e., if we click (or draw a selection over) a currently selected item, that item is removed
      * from the current selection and vice versa.
      */
     if (![_selectedItems isEqualToSet:views]) {
@@ -84,7 +84,12 @@
 
 - (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point flags:(NSUInteger)flags;
 {
-    // Optional protocol method to handle single click in the view
+    /* 
+     * Optional protocol method to handle double click in the view
+     * Note: a message will also be sent to selectionView:didSingleClickAtPoint:flags: before it is sent to this method.
+     * There are ways around this but they all involve waiting for `doubleClickInterval` which is probably not desirable 
+     * in most cases.
+     */
 }
 
 - (BOOL)selectionView:(LJSelectionView *)aSelectionView shouldDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
