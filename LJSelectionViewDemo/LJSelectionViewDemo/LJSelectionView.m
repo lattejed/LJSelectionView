@@ -7,6 +7,13 @@
 //
 
 #import "LJSelectionView.h"
+#import "LJSelectionRectView.h"
+
+//@interface LJSelectionView ()
+
+//- (void)addViewRespectingHierarchy:(NSView *)aView;
+
+//@end
 
 @implementation LJSelectionView
 
@@ -29,18 +36,17 @@
     return self;
 }
 
-#pragma mark - Selection rect view and subview handling
-
-- (void)addSelectionRectView:(LJSelectionRectView *)aSelectionRectView;
+- (void)awakeFromNib;
 {
-    if ([[self subviews] containsObject:_selectionRectView]) {
-        [_selectionRectView removeFromSuperview];
+    [super awakeFromNib];
+    if (_selectionRectView) {
+        [_selectionRectView setFrame:NSZeroRect];
     }
-    self.selectionRectView = aSelectionRectView;
-    [super addSubview:(NSView *)_selectionRectView positioned:NSWindowAbove relativeTo:nil];
 }
 
-- (void)addSubViewRelativeToOverlay:(NSView *)view;
+#pragma mark - Selection rect view and subview handling
+
+- (void)addSelectableSubview:(NSView *)aView;
 {
     if (!_selectionRectView) {
         NSString* res = @"An instance of LJSelectionRectView needs to be added to LJSelectionView before other subviews are added.";
@@ -49,28 +55,20 @@
                                                        userInfo:nil];
         @throw exception;
     }
-    [super addSubview:view positioned:NSWindowBelow relativeTo:(NSView *)_selectionRectView];
+    [super addSubview:aView positioned:NSWindowBelow relativeTo:(NSView *)_selectionRectView];
 }
 
-- (void)addSubview:(NSView *)aView positioned:(NSWindowOrderingMode)place relativeTo:(NSView *)otherView;
+- (void)addSelectionRectView:(LJSelectionRectView *)aView;
 {
-    NSString* res = @"Only add subviews to this view with the addSubViewRelativeToOverlay: method.";
-    NSException* exception = [NSException exceptionWithName:@"WrongMethodException"
-                                                     reason:res
-                                                   userInfo:nil];
-    @throw exception;
+    if ([[self subviews] containsObject:_selectionRectView]) {
+        [_selectionRectView removeFromSuperview];
+    }
+    [super addSubview:(NSView *)_selectionRectView positioned:NSWindowAbove relativeTo:nil];
+    self.selectionRectView = (LJSelectionRectView *)aView;
+    [_selectionRectView setFrame:NSZeroRect];
 }
 
-- (void)addSubview:(NSView *)aView;
-{
-    NSString* res = @"Only add subviews to this view with the addSubViewRelativeToOverlay: method.";
-    NSException* exception = [NSException exceptionWithName:@"WrongMethodException"
-                                                     reason:res
-                                                   userInfo:nil];
-    @throw exception;
-}
-
-- (NSArray *)subviews;
+- (NSArray *)selectableSubviews;
 {
     NSMutableArray* array = [_subviews mutableCopy];
     if (_selectionRectView) {

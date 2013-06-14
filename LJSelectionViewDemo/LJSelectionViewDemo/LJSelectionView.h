@@ -16,6 +16,7 @@
 - (void)selectionView:(LJSelectionView *)aSelectionView didSingleClickAtPoint:(NSPoint)point flags:(NSUInteger)flags;
 - (BOOL)selectionView:(LJSelectionView *)aSelectionView shouldDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
 - (void)selectionView:(LJSelectionView *)aSelectionView didFinishDragFromPoint:(NSPoint)p1 toPoint:(NSPoint)p2 delta:(NSPoint)delta flags:(NSUInteger)flags;
+- (NSRect)selectionViewRectForSelection;
 
 @optional
 - (void)selectionView:(LJSelectionView *)aSelectionView didDoubleClickatPoint:(NSPoint)point flags:(NSUInteger)flags;
@@ -24,10 +25,11 @@
 @interface LJSelectionView : NSView
 
 @property (nonatomic, unsafe_unretained) IBOutlet id<LJSelectionViewDelegate> delegate;
+@property (nonatomic, strong) IBOutlet LJSelectionRectView* selectionRectView;
 @property (nonatomic, assign) BOOL canDragOutsideBounds;
-@property (nonatomic, strong) LJSelectionRectView* selectionRectView;
 
-- (void)addSelectionRectView:(LJSelectionRectView *)aSelectionRectView;
-- (void)addSubViewRelativeToOverlay:(NSView *)aView;
+- (void)addSelectableSubview:(NSView *)aView;
+- (void)addSelectionRectView:(LJSelectionRectView *)aView;
+- (NSArray *)selectableSubviews;
 
 @end

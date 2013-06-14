@@ -12,4 +12,7 @@
 
 @property (nonatomic, unsafe_unretained) IBOutlet NSWindow *window;
 
+- (IBAction)addView:(id)sender;
+- (IBAction)removeView:(id)sender;
+
 @end

@@ -23,18 +23,15 @@ typedef enum {
 
 @interface LJSelectionViewController : NSObject <LJSelectionViewDelegate>
 
-@property (nonatomic, unsafe_unretained) IBOutlet LJSelectionView* selectionView;
+@property (nonatomic, strong) IBOutlet LJSelectionView* selectionView;
 @property (nonatomic, assign) BOOL shouldManageSelectionUndo;
-@property (nonatomic, unsafe_unretained) NSUndoManager* undoManager;
+@property (nonatomic, strong) NSUndoManager* undoManager;
 @property (nonatomic, assign) kSelectionBehavior selectionBehavior;
 @property (nonatomic, assign) kDragType dragType;
 @property (nonatomic, strong) NSSet* selectedSubviews;
+@property (nonatomic, assign) NSRect selectionRect;
 
 - (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
 - (void)clearSelection;
-
-// Example actions
-- (IBAction)addView:(id)sender;
-- (IBAction)removeView:(id)sender;
 
 @end

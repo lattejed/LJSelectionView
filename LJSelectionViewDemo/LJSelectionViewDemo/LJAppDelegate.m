@@ -21,4 +21,15 @@
     return YES;
 }
 
+// Example actions
+- (IBAction)addView:(id)sender;
+{
+    
+}
+
+- (IBAction)removeView:(id)sender;
+{
+    
+}
+
 @end

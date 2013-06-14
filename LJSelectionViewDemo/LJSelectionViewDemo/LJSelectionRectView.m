@@ -12,7 +12,7 @@
 
 - (id)initWithFrame:(NSRect)frameRect;
 {
-    if (self = [self initWithFrame:frameRect]) {
+    if (self = [super initWithFrame:frameRect]) {
         _showFill = NO;
         _showDashedLine = NO;
         _lineWidth = 2.0f;

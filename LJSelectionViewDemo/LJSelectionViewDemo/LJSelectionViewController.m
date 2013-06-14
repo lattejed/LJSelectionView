@@ -23,19 +23,9 @@
     if (self) {
         _selectionBehavior = kSelectionBehaviorPartial;
         _dragType = kDragTypeNone;
+        _selectionRect = NSZeroRect;
     }
     return self;
-}
-
-// Example actions
-- (IBAction)addView:(id)sender;
-{
-
-}
-
-- (IBAction)removeView:(id)sender;
-{
-
 }
 
 #pragma mark - Selection management
@@ -87,8 +77,16 @@
 {
     if (_dragType == kDragTypeNone) {
         
-        // If you want other drag options besides selection in your view, you can switch between drag types here.
+        // If you want other drag options besides selection in your view, you can select drag types here.
         _dragType = kDragTypeSelect;
+    }
+    
+    switch (_dragType) {
+        case kDragTypeSelect:
+            _selectionRect = NSMakeRect(p1.x, p1.y, p2.x+p1.x, p2.y+p1.y);
+            break;
+        default:
+            break;
     }
     
     // Returning NO in this method prevents the drag from continuting.
@@ -107,8 +105,14 @@
                 [self addViewsToSelection:views append:NO];
             }
         }
+        _selectionRect = NSZeroRect;
     }
     _dragType = kDragTypeNone;
+}
+
+- (NSRect)selectionViewRectForSelection;
+{
+    return _selectionRect;
 }
 
 #pragma mark - Private methods
