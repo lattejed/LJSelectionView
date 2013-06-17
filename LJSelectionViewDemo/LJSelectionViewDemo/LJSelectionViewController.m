@@ -6,6 +6,14 @@
 //  Copyright (c) 2013 lattejed.com. All rights reserved.
 //
 
+#if __has_feature(objc_arc)
+    #define SAFE_ARC_AUTORELEASE(__X__) (__X__)
+    #define SAFE_ARC_SUPER_DEALLOC()
+#else
+    #define SAFE_ARC_AUTORELEASE(__X__) ([(__X__) autorelease])
+    #define SAFE_ARC_SUPER_DEALLOC() ([super dealloc])
+#endif
+
 #import "LJSelectionViewController.h"
 
 @interface LJSelectionViewController ()
@@ -20,6 +28,13 @@
 @end
 
 @implementation LJSelectionViewController
+
+- (void)dealloc;
+{
+    self.selectionView = nil;
+    self.selectedItems = nil;
+    SAFE_ARC_SUPER_DEALLOC();
+}
 
 - (id)init;
 {
@@ -51,16 +66,16 @@
         if (!_selectedItems) {
             self.selectedItems = [NSSet set];
         }
-        NSMutableSet* selection = [_selectedItems mutableCopy];
-        NSMutableSet* intersect = [_selectedItems mutableCopy];
+        NSMutableSet* selection = SAFE_ARC_AUTORELEASE([_selectedItems mutableCopy]);
+        NSMutableSet* intersect = SAFE_ARC_AUTORELEASE([_selectedItems mutableCopy]);
         [intersect intersectSet:views];
         [selection unionSet:views];
         [selection minusSet:intersect];
-        self.selectedItems = [selection copy];
+        self.selectedItems = SAFE_ARC_AUTORELEASE([selection copy]);
     }
     else {
         [_undoManager setActionName:NSLocalizedString(@"Select", @"")];
-        self.selectedItems = [views copy];
+        self.selectedItems = SAFE_ARC_AUTORELEASE([views copy]);
     }
 }
 
@@ -75,10 +90,10 @@
 
 - (void)pruneSelectionIfNecesary;
 {
-    NSMutableSet* intersection = [_selectedItems mutableCopy];
+    NSMutableSet* intersection = SAFE_ARC_AUTORELEASE([_selectedItems mutableCopy]);
     NSSet* views = [NSSet setWithArray:[_selectionView selectableSubviews]];
     [intersection intersectSet:views];
-    self.selectedItems = [intersection copy];
+    self.selectedItems = SAFE_ARC_AUTORELEASE([intersection copy]);
 }
 
 #pragma mark - LJSelectionViewDelegate
@@ -95,9 +110,8 @@
 {
     /* 
      * Optional protocol method to handle double click in the view
-     * Note: a message will also be sent to selectionView:didSingleClickAtPoint:flags: before it is sent to this method.
-     * There are ways around this but they all involve waiting for `doubleClickInterval` which is probably not desirable 
-     * in most cases.
+     * Note: the message selectionView:didSingleClickAtPoint:flags: will also be sent before this message is.
+     * The selectionView:didSingleClickAtPoint:flags: message will be sent two times: Once for each click of the double click.
      */
 }
 
@@ -119,7 +133,7 @@
     
     [_selectionView setNeedsDisplay:YES];
     
-    // Returning NO in this method prevents the drag from continuting.
+    // Returning NO in this method prevents the drag from continuing.
     return YES;
 }
 
@@ -164,6 +178,10 @@
 
 - (NSSet *)viewsInRect:(NSRect)rect;
 {
+    /*
+     * If we've set kSelectionBehaviorPartial a view will be selected if any of it is under the selection rect.
+     * If we've set kSelectionBehaviorFull a view will be selected if all of it is under the selection rect.
+     */
     NSSet* views = [NSSet set];
     for (NSView* view in [_selectionView selectableSubviews]) {
         if ( (_selectionBehavior == kSelectionBehaviorPartial   && NSIntersectsRect(rect, view.frame)) ||

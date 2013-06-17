@@ -10,6 +10,15 @@
 
 @implementation LJSelectionItemView
 
+- (void)dealloc;
+{
+    self.lineColor1 = nil;
+    self.lineColor2 = nil;
+#if !__has_feature(objc_arc)
+    [super dealloc];
+#endif
+}
+
 - (id)initWithFrame:(NSRect)frameRect;
 {
     if (self = [super initWithFrame:frameRect]) {

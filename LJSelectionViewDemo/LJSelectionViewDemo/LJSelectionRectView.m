@@ -10,6 +10,14 @@
 
 @implementation LJSelectionRectView
 
+- (void)dealloc;
+{
+    self.fillColor = nil;
+#if !__has_feature(objc_arc)
+    [super dealloc];
+#endif
+}
+
 - (id)initWithFrame:(NSRect)frameRect;
 {
     if (self = [super initWithFrame:frameRect]) {

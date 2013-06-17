@@ -10,6 +10,14 @@
 #import "LJSelectionItemView.h"
 #import "LJSelectionRectView.h"
 
+#if __has_feature(objc_arc)
+    #define SAFE_ARC_AUTORELEASE(__X__) (__X__)
+    #define SAFE_ARC_SUPER_DEALLOC()
+#else
+    #define SAFE_ARC_AUTORELEASE(__X__) ([(__X__) autorelease])
+    #define SAFE_ARC_SUPER_DEALLOC() ([super dealloc])
+#endif
+
 static NSString* const kSubviewsKeypath = @"subviews";
 
 @interface LJSelectionView ()
@@ -26,9 +34,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 - (void)dealloc;
 {
     [self removeObserver:self forKeyPath:kSubviewsKeypath];
-#if !__has_feature(objc_arc)
-    [super dealloc];
-#endif
+    SAFE_ARC_SUPER_DEALLOC();
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
@@ -77,7 +83,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
     if (_drawsItemHighlights && [_delegate respondsToSelector:@selector(selectionViewSelectedItems)]) {
         NSSet* selectedItems = [_delegate selectionViewSelectedItems];
         for (NSView* item in selectedItems) {
-            LJSelectionItemView* selectionItemView = [_selectionItemViewPrototype copy];
+            LJSelectionItemView* selectionItemView = SAFE_ARC_AUTORELEASE([_selectionItemViewPrototype copy]);
             [selectionItemView setFrame:item.frame];
             [super addSubview:selectionItemView positioned:NSWindowAbove relativeTo:item];
         }
@@ -108,32 +114,32 @@ static NSString* const kSubviewsKeypath = @"subviews";
 
 - (NSArray *)selectableSubviews;
 {
-    NSMutableArray* array = [_subviews mutableCopy];
+    NSMutableArray* array = SAFE_ARC_AUTORELEASE([_subviews mutableCopy]);
     for (NSView* view in _subviews) {
         if ([view isMemberOfClass:[LJSelectionItemView class]] ||
             [view isMemberOfClass:[LJSelectionRectView class]]) {
             [array removeObject:view];
         }
     }
-    return [array copy];
+    return SAFE_ARC_AUTORELEASE([array copy]);
 }
 
 - (NSArray *)highlightViews;
 {
-    NSMutableArray* array = [_subviews mutableCopy];
+    NSMutableArray* array = SAFE_ARC_AUTORELEASE([_subviews mutableCopy]);
     for (NSView* view in _subviews) {
         if (![view isMemberOfClass:[LJSelectionItemView class]]) {
             [array removeObject:view];
         }
     }
-    return [array copy];
+    return SAFE_ARC_AUTORELEASE([array copy]);
 }
 
 - (void)removeHighlightViews;
 {
-    NSMutableArray* array = [_subviews mutableCopy];
+    NSMutableArray* array = SAFE_ARC_AUTORELEASE([_subviews mutableCopy]);
     [array removeObjectsInArray:[self highlightViews]];
-    self.subviews = [array copy];
+    self.subviews = SAFE_ARC_AUTORELEASE([array copy]);
 }
 
 #pragma mark - Mouse events
