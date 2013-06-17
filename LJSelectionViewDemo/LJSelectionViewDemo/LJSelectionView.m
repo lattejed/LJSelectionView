@@ -53,9 +53,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 {
     [super drawRect:dirtyRect];
     [self removeHighlightViews];
-    if (_drawsItemHighlights) {
-        [self drawItemHighlights];
-    }
+    [self drawItemHighlights];
     [self drawSelectionRect];
 }
 
@@ -76,7 +74,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 
 - (void)drawItemHighlights;
 {
-    if ([_delegate respondsToSelector:@selector(selectionViewSelectedItems)]) {
+    if (_drawsItemHighlights && [_delegate respondsToSelector:@selector(selectionViewSelectedItems)]) {
         NSSet* selectedItems = [_delegate selectionViewSelectedItems];
         for (NSView* item in selectedItems) {
             LJSelectionItemView* selectionItemView = [_selectionItemViewPrototype copy];
@@ -143,13 +141,11 @@ static NSString* const kSubviewsKeypath = @"subviews";
 - (void)mouseUp:(NSEvent *)theEvent;
 {
     NSPoint point = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    [_delegate selectionView:self didSingleClickAtPoint:point flags:[theEvent modifierFlags]];
     if([theEvent clickCount] == 2) {
         if ([_delegate respondsToSelector:@selector(selectionView:didDoubleClickatPoint:flags:)]) {
             [_delegate selectionView:self didDoubleClickatPoint:point flags:[theEvent modifierFlags]];
         }
-    }
-    else {
-        [_delegate selectionView:self didSingleClickAtPoint:point flags:[theEvent modifierFlags]];
     }
 }
 

@@ -38,6 +38,7 @@
     _selectionView = _appDelegate.selectionView;
     
     _selectionViewController.selectionBehavior = kSelectionBehaviorPartial;
+    _selectionView.drawsItemHighlights = YES;
     
     [_appDelegate addViewWithFrame:NSMakeRect(0,  0,  500,500)];
     [_appDelegate addViewWithFrame:NSMakeRect(500,0,  500,500)];
@@ -61,9 +62,9 @@
 
 - (void)testSelectionViewAndController
 {
-    STAssertNotNil(_selectionViewController, @"_selectionViewController is nil");
-    STAssertNotNil(_selectionView, @"_selectionView is nil");
-    STAssertNotNil(_selectionView.selectionRectView, @"_selectionView.selectionRectView is nil");
+    STAssertNotNil(_selectionViewController, @"_selectionViewController is nil.");
+    STAssertNotNil(_selectionView, @"_selectionView is nil.");
+    STAssertNotNil(_selectionView.selectionRectView, @"_selectionView.selectionRectView is nil.");
 }
 
 - (void)testSelectionViewSubviews
@@ -293,6 +294,26 @@
     [_selectionView drawItemHighlights];
     
     STAssertEquals([_selectionViewController selectedItems].count, 0UL, @"SelectionViewController has the wrong number of selected items.");
+    STAssertEquals([_selectionView highlightViews].count, 0UL, @"SelectionView has the wrong number of highlight views.");
+}
+
+- (void)testDoesntDrawItemHighlights
+{
+    STAssertEquals([_selectionView selectableSubviews].count, 3UL, @"SelectionView has the wrong number of subviews.");
+    STAssertEquals([_selectionViewController selectedItems].count, 0UL, @"SelectionViewController has the wrong number of selected items.");
+    STAssertEquals([_selectionView highlightViews].count, 0UL, @"SelectionView has the wrong number of highlight views.");
+    STAssertTrue(_selectionView.drawsItemHighlights, @"SelectionView should draw highlight views.");
+    
+    _selectionView.drawsItemHighlights = NO;
+    
+    STAssertFalse(_selectionView.drawsItemHighlights, @"SelectionView shouldn't draw highlight views.");
+
+    // Select one
+    [_selectionViewController selectionView:_selectionView didSingleClickAtPoint:NSMakePoint(250, 250) flags:0];
+    [_selectionView removeHighlightViews];
+    [_selectionView drawItemHighlights];
+    
+    STAssertEquals([_selectionViewController selectedItems].count, 1UL, @"SelectionViewController has the wrong number of selected items.");
     STAssertEquals([_selectionView highlightViews].count, 0UL, @"SelectionView has the wrong number of highlight views.");
 }
 
