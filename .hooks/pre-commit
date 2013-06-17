@@ -3,10 +3,10 @@
 pwd
 
 echo "Copying files into root directory..."
-cp ./LJSelectionViewDemo/LJSelectionViewController.* ./
-cp ./LJSelectionViewDemo/LJSelectionView.* ./
-cp ./LJSelectionViewDemo/LJSelectionItemView.* ./
-cp ./LJSelectionViewDemo/LJSelectionRectView.* ./
+cp LJSelectionViewDemo/LJSelectionViewController.* .
+cp LJSelectionViewDemo/LJSelectionView.* .
+cp LJSelectionViewDemo/LJSelectionItemView.* .
+cp LJSelectionViewDemo/LJSelectionRectView.* . 
 
 echo "Adding new files for Git to track..."
 git add .
