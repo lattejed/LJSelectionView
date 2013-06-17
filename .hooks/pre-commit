@@ -1,10 +1,13 @@
 #!/bin/sh
 
-echo "Copying files into root directory..."
+echo "Pre-commit starting"
+echo "Ensuring core files are copied to root and are tracked..."
+
 cp LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionViewController.* .
 cp LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionView.* .
 cp LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionItemView.* .
 cp LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionRectView.* . 
 
-echo "Adding new files for Git to track..."
 git add .
+
+echo "Pre-commit done"
