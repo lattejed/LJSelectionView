@@ -1,6 +1,7 @@
 #!/bin/sh
 
 pwd
+ls
 
 echo "Copying files into root directory..."
 cp LJSelectionViewDemo/LJSelectionViewController.* .
