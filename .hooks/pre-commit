@@ -1,5 +1,8 @@
-echo "pre-commit started"
-
+echo "Copying files into root directory..."
 cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionViewController.* ../
+cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionView.* ../
+cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionItemView.* ../
+cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionRectView.* ../
 
-echo "pre-commit finished"
+echo "Adding new files for Git to track..."
+git add .
