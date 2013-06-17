@@ -12,7 +12,6 @@
 
 @implementation LJAppDelegate
 
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 {
     // Insert code here to initialize your application
@@ -28,8 +27,12 @@
 {  
     int originX = arc4random() % (int)(_selectionView.frame.size.width  - 200);
     int originY = arc4random() % (int)(_selectionView.frame.size.height - 200);
+    [self addViewWithFrame:NSMakeRect(originX, originY, 200, 200)];
+}
 
-    NSImageView* item = [[NSImageView alloc] initWithFrame:NSMakeRect(originX, originY, 200, 200)];
+- (void)addViewWithFrame:(NSRect)frame;
+{
+    NSImageView* item = [[NSImageView alloc] initWithFrame:frame];
     item.image = [NSImage imageNamed:@"Lenna.png"];
     [_selectionView addSelectableSubview:item];
 #if !__has_feature(objc_arc)

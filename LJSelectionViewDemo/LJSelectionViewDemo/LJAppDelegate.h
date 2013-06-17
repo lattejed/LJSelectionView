@@ -19,5 +19,6 @@
 
 - (IBAction)addView:(id)sender;
 - (IBAction)removeView:(id)sender;
+- (void)addViewWithFrame:(NSRect)frame;
 
 @end

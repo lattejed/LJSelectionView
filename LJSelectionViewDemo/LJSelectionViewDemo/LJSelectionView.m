@@ -17,6 +17,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 - (void)drawSelectionRect;
 - (void)drawItemHighlights;
 - (void)removeHighlightViews;
+- (NSArray *)highlightViews;
 
 @end
 
@@ -60,12 +61,11 @@ static NSString* const kSubviewsKeypath = @"subviews";
 
 #pragma mark - Subview and selection handling
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{    
     if ([keyPath isEqual:@"subviews"]) {
         [_delegate selectionViewDidUpdateSubviews];
     }
-    //[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 - (void)drawSelectionRect;
@@ -120,15 +120,22 @@ static NSString* const kSubviewsKeypath = @"subviews";
     return [array copy];
 }
 
-- (void)removeHighlightViews;
+- (NSArray *)highlightViews;
 {
     NSMutableArray* array = [_subviews mutableCopy];
     for (NSView* view in _subviews) {
-        if ([view isMemberOfClass:[LJSelectionItemView class]]) {
+        if (![view isMemberOfClass:[LJSelectionItemView class]]) {
             [array removeObject:view];
         }
     }
-    self.subviews = array;
+    return [array copy];
+}
+
+- (void)removeHighlightViews;
+{
+    NSMutableArray* array = [_subviews mutableCopy];
+    [array removeObjectsInArray:[self highlightViews]];
+    self.subviews = [array copy];
 }
 
 #pragma mark - Mouse events
@@ -154,7 +161,6 @@ static NSString* const kSubviewsKeypath = @"subviews";
     NSPoint delta = NSZeroPoint;
     
     while (YES) {
-        theEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
         mouseCurrentLoc = [self convertPoint:[theEvent locationInWindow] fromView:nil];
         delta = NSMakePoint((mouseCurrentLoc.x-mouseLastLoc.x), (mouseCurrentLoc.y-mouseLastLoc.y));
         mouseLastLoc = mouseCurrentLoc;
@@ -170,6 +176,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
                 break;
             }
         }
+        theEvent = [[self window] nextEventMatchingMask:NSLeftMouseUpMask|NSLeftMouseDraggedMask];
     }
 }
 

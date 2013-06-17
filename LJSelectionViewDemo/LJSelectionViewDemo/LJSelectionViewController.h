@@ -10,8 +10,8 @@
 #import "LJSelectionView.h"
 
 typedef enum {
-    kSelectionBehaviorFull,
-    kSelectionBehaviorPartial
+    kSelectionBehaviorPartial,
+    kSelectionBehaviorFull
 } kSelectionBehavior;
 
 typedef enum {

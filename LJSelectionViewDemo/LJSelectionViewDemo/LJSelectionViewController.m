@@ -166,8 +166,8 @@
 {
     NSSet* views = [NSSet set];
     for (NSView* view in [_selectionView selectableSubviews]) {
-        if ( (_selectionBehavior == kSelectionBehaviorPartial   && NSIntersectsRect(view.frame, rect)) ||
-             (_selectionBehavior == kSelectionBehaviorFull      && NSContainsRect(view.frame, rect))) {
+        if ( (_selectionBehavior == kSelectionBehaviorPartial   && NSIntersectsRect(rect, view.frame)) ||
+             (_selectionBehavior == kSelectionBehaviorFull      && NSContainsRect(rect, view.frame))) {
             views = [views setByAddingObject:view];
         }
     }
