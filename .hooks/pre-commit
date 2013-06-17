@@ -1,1 +1,5 @@
+echo "pre-commit started"
+
 cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionViewController.* ../
+
+echo "pre-commit finished"
