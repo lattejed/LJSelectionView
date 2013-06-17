@@ -6,3 +6,4 @@ cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionRectView.* ../
 
 echo "Adding new files for Git to track..."
 git add .
+
