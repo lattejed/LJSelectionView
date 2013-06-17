@@ -8,15 +8,21 @@
 
 #import "LJSelectionItemView.h"
 
+#if __has_feature(objc_arc)
+    #define SAFE_ARC_AUTORELEASE(__X__) (__X__)
+    #define SAFE_ARC_SUPER_DEALLOC()
+#else
+    #define SAFE_ARC_AUTORELEASE(__X__) ([(__X__) autorelease])
+    #define SAFE_ARC_SUPER_DEALLOC() ([super dealloc])
+#endif
+
 @implementation LJSelectionItemView
 
 - (void)dealloc;
 {
     self.lineColor1 = nil;
     self.lineColor2 = nil;
-#if !__has_feature(objc_arc)
-    [super dealloc];
-#endif
+    SAFE_ARC_SUPER_DEALLOC();
 }
 
 - (id)initWithFrame:(NSRect)frameRect;
@@ -38,8 +44,8 @@
     aCopy->_showDashedLine = _showDashedLine;
     aCopy->_lineWidth = _lineWidth;
     aCopy->_lineDashWidth = _lineDashWidth;
-    aCopy.lineColor1 = [_lineColor1 copy];
-    aCopy.lineColor2 = [_lineColor2 copy];
+    aCopy.lineColor1 = SAFE_ARC_AUTORELEASE([_lineColor1 copy]);
+    aCopy.lineColor2 = SAFE_ARC_AUTORELEASE([_lineColor2 copy]);
     return aCopy;
 }
 

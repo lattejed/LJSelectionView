@@ -158,7 +158,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 - (void)mouseDragged:(NSEvent *)theEvent;
 {
     NSPoint mouseStart = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-    NSPoint mouseCurrentLoc = mouseStart;
+    NSPoint mouseCurrentLoc = NSZeroPoint;
     NSPoint mouseLastLoc = mouseStart;
     NSPoint delta = NSZeroPoint;
     
