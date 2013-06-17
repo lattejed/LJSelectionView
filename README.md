@@ -7,17 +7,17 @@ To overcome these limitations, LJSelectionView and its supporting classes manage
 
 All included classes are configurable for common options and are easy to subclass or modify if they don't do exactly what you're looking for.
  
-# Usage
-Copy the four files: `LJSelectionViewController.m, LJSelectionView.m, LJSelectionItemView.m and LJSelectionRectView.m` and their headers to your project. Make sure all outlets are hooked up in IB or in code and you should be good to go.
+## Usage
+Copy the four files: `LJSelectionViewController.m`, `LJSelectionView.m`, `LJSelectionItemView.m` and `LJSelectionRectView.m` and their headers to your project. Make sure all outlets are hooked up in IB or in code and you should be good to go.
 
-# License
+## License
 An MIT license is included in the root directory of this repo.
 
-# Arc Support
+## Arc Support
 LJSelectionView supports both ARC and non-ARC projects without modification.
 
-# Testing
+## Testing
 The included application tests are not automated in any way. To run the tests, open the project in Xcode and press ⌘-U.
 
-# Forking / Copying
+## Forking / Copying
 If you fork/copy this repo I recommend you link the `pre-commit` file in `.hooks` to your local `.git/hooks` directory. It copies the main source files and their headers from the demo project to the root directory. I didn't think a submodule was worthwhile in this case.
