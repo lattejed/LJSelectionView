@@ -1,4 +1,4 @@
-electionView
+# LJelectionView
 A common pattern in desktop Cocoa apps is to have a parent NSView manage a collection of NSView siblings. An example would be an NSView acting as a drawing canvas containing a collection of NSViews that represent lines and shapes. LJSelectionView manages those sibling views and their selection.
 
 As of 10.5 the drawing order of sibling views is guaranteed and can be set by the `addSubview:positioned:relativeTo:` method in NSView. What we're still lacking is the ability to draw an overlay over a set of NSViews (say to draw a selection rectangle) or to directly draw in front of a NSView's subviews. 
