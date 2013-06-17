@@ -1,3 +1,5 @@
+#!/bin/sh
+
 echo "Copying files into root directory..."
 cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionViewController.* ../
 cp ../LJSelectionViewDemo/LJSelectionViewDemo/LJSelectionView.* ../
