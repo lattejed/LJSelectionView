@@ -1,3 +1,5 @@
+![Screenshot](https://phaven-prod.s3.amazonaws.com/files/image_part/asset/946469/PdZmANHSvhINfvAj5SstpJS0vOU/medium_Screen_Shot_2013-06-18_at_3.16.38_PM.jpg "LJelectionView Screenshot")
+
 # LJelectionView
 A common pattern in desktop Cocoa apps is to have a parent NSView manage a collection of NSView siblings. An example would be an NSView acting as a drawing canvas containing a collection of NSViews that represent lines and shapes. LJSelectionView manages those sibling views and their selection.
 
