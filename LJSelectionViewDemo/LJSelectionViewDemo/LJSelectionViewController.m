@@ -39,6 +39,7 @@
 {
     self = [super init];
     if (self) {
+        _shouldManageSelectionUndo = YES;
         _selectionBehavior = kSelectionBehaviorPartial;
         _dragType = kDragTypeNone;
         _selectionRect = NSZeroRect;
@@ -57,10 +58,17 @@
      * i.e., if we click (or draw a selection over) a currently selected item, that item is removed
      * from the current selection and vice versa.
      */
-    [[_undoManager prepareWithInvocationTarget:_selectionView] setNeedsDisplay:YES];
-    [[_undoManager prepareWithInvocationTarget:self] addViewsToSelection:_selectedItems append:append];
+    if (_shouldManageSelectionUndo) {
+        [[_undoManager prepareWithInvocationTarget:_selectionView] setNeedsDisplay:YES];
+        [[_undoManager prepareWithInvocationTarget:self] addViewsToSelection:_selectedItems append:append];
+        if (append) {
+            [_undoManager setActionName:NSLocalizedString(@"Add To Selection", @"")];
+        }
+        else {
+            [_undoManager setActionName:NSLocalizedString(@"Select", @"")];
+        }
+    }
     if (append) {
-        [_undoManager setActionName:NSLocalizedString(@"Add To Selection", @"")];
         if (!_selectedItems) {
             self.selectedItems = [NSSet set];
         }
@@ -72,7 +80,6 @@
         self.selectedItems = SAFE_ARC_AUTORELEASE([selection copy]);
     }
     else {
-        [_undoManager setActionName:NSLocalizedString(@"Select", @"")];
         self.selectedItems = SAFE_ARC_AUTORELEASE([views copy]);
     }
 }
