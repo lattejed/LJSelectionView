@@ -11,11 +11,12 @@
 @class LJSelectionView;
 @class LJSelectionViewController;
 
-@interface LJAppDelegate : NSObject <NSApplicationDelegate>
+@interface LJAppDelegate : NSObject <NSApplicationDelegate, NSWindowDelegate>
 
 @property (nonatomic, unsafe_unretained) IBOutlet NSWindow *window;
 @property (nonatomic, unsafe_unretained) IBOutlet LJSelectionView* selectionView;
 @property (nonatomic, unsafe_unretained) IBOutlet LJSelectionViewController* selectionViewController;
+@property (nonatomic, strong) NSUndoManager* undoManager;
 
 - (IBAction)addView:(id)sender;
 - (IBAction)removeView:(id)sender;

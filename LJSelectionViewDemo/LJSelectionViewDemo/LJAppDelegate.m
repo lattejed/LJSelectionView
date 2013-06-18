@@ -10,16 +10,38 @@
 #import "LJSelectionViewController.h"
 #import "LJSelectionView.h"
 
+#if __has_feature(objc_arc)
+    #define SAFE_ARC_AUTORELEASE(__X__) (__X__)
+    #define SAFE_ARC_SUPER_DEALLOC()
+#else
+    #define SAFE_ARC_AUTORELEASE(__X__) ([(__X__) autorelease])
+    #define SAFE_ARC_SUPER_DEALLOC() ([super dealloc])
+#endif
+
 @implementation LJAppDelegate
+
+- (void)dealloc;
+{
+    _window.delegate = nil;
+    self.undoManager = nil;
+    SAFE_ARC_SUPER_DEALLOC();
+}
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification;
 {
-    // Insert code here to initialize your application
+    self.undoManager = SAFE_ARC_AUTORELEASE([[NSUndoManager alloc] init]);
+    _selectionViewController.undoManager = _undoManager;
+    _window.delegate = self;
 }
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender;
 {
     return YES;
+}
+
+- (NSUndoManager *)windowWillReturnUndoManager:(NSWindow *)aWindow;
+{
+    return _undoManager;
 }
 
 // Example actions
@@ -32,12 +54,9 @@
 
 - (void)addViewWithFrame:(NSRect)frame;
 {
-    NSImageView* item = [[NSImageView alloc] initWithFrame:frame];
+    NSImageView* item = SAFE_ARC_AUTORELEASE([[NSImageView alloc] initWithFrame:frame]);
     item.image = [NSImage imageNamed:@"Lenna.png"];
     [_selectionView addSelectableSubview:item];
-#if !__has_feature(objc_arc)
-    [item release];
-#endif
 }
 
 - (IBAction)removeView:(id)sender;

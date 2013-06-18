@@ -19,7 +19,6 @@
 @interface LJSelectionViewController ()
 
 - (void)addViewsToSelection:(NSSet *)views append:(BOOL)append;
-- (void)clearSelection;
 - (void)pruneSelectionIfNecesary;
 - (NSView *)viewForPoint:(NSPoint)point;
 - (NSSet *)viewsInRect:(NSRect)rect;
@@ -58,9 +57,8 @@
      * i.e., if we click (or draw a selection over) a currently selected item, that item is removed
      * from the current selection and vice versa.
      */
-    if (![_selectedItems isEqualToSet:views]) {
-        [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
-    }
+    [[_undoManager prepareWithInvocationTarget:_selectionView] setNeedsDisplay:YES];
+    [[_undoManager prepareWithInvocationTarget:self] addViewsToSelection:_selectedItems append:append];
     if (append) {
         [_undoManager setActionName:NSLocalizedString(@"Add To Selection", @"")];
         if (!_selectedItems) {
@@ -77,15 +75,6 @@
         [_undoManager setActionName:NSLocalizedString(@"Select", @"")];
         self.selectedItems = SAFE_ARC_AUTORELEASE([views copy]);
     }
-}
-
-- (void)clearSelection;
-{
-    if (_selectedItems && [_selectedItems count] > 0) {
-        [[_undoManager prepareWithInvocationTarget:self] setSelectedItems:_selectedItems];
-        [_undoManager setActionName:NSLocalizedString(@"Clear Selection", @"")];
-    }
-    self.selectedItems = nil;
 }
 
 - (void)pruneSelectionIfNecesary;
