@@ -8,7 +8,7 @@ To overcome these limitations, LJSelectionView and its supporting classes manage
 All included classes are configurable for common options and are easy to subclass or modify if they don't do exactly what you're looking for.
  
 ## Usage
-Copy the four files: `LJSelectionViewController.m`, `LJSelectionView.m`, `LJSelectionItemView.m` and `LJSelectionRectView.m` and their headers to your project. Make sure all outlets are hooked up in IB or in code and you should be good to go.
+Copy the four files: `LJSelectionViewController.m`, `LJSelectionView.m`, `LJSelectionItemView.m` and `LJSelectionRectView.m` and their headers to your project. Recreate the view hierarchy and make sure all outlets are hooked up in IB (you can check the demo to see how it's setup). It is possible to setup the view hierarchy without IB you just have to make sure the right connections are made.
 
 ## License
 An MIT license is included in the root directory of this repo.
