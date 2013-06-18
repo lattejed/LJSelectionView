@@ -116,8 +116,9 @@ static NSString* const kSubviewsKeypath = @"subviews";
 {
     NSMutableArray* array = SAFE_ARC_AUTORELEASE([_subviews mutableCopy]);
     for (NSView* view in _subviews) {
-        if ([view isMemberOfClass:[LJSelectionItemView class]] ||
-            [view isMemberOfClass:[LJSelectionRectView class]]) {
+        // The second call is actuall redundant here but it's here for readability
+        if ([view isKindOfClass:[LJSelectionItemView class]] ||
+            [view isKindOfClass:[LJSelectionRectView class]]) {
             [array removeObject:view];
         }
     }
@@ -128,7 +129,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 {
     NSMutableArray* array = SAFE_ARC_AUTORELEASE([_subviews mutableCopy]);
     for (NSView* view in _subviews) {
-        if (![view isMemberOfClass:[LJSelectionItemView class]]) {
+        if (![view isKindOfClass:[LJSelectionItemView class]]) {
             [array removeObject:view];
         }
     }
