@@ -8,8 +8,13 @@
 
 #import "LJSelectionItemView.h"
 
-@interface LJSelectionRectView : LJSelectionItemView
+@interface LJSelectionRectView : NSView
 
+@property (nonatomic, assign) BOOL showDashedLine;
+@property (nonatomic, assign) CGFloat lineWidth;
+@property (nonatomic, assign) CGFloat lineDashWidth;
+@property (nonatomic, strong) NSColor* lineColor1;
+@property (nonatomic, strong) NSColor* lineColor2;
 @property (nonatomic, assign) BOOL showFill;
 @property (nonatomic, strong) NSColor* fillColor;
 

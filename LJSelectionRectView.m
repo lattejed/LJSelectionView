@@ -12,6 +12,8 @@
 
 - (void)dealloc;
 {
+    self.lineColor1 = nil;
+    self.lineColor2 = nil;
     self.fillColor = nil;
 #if !__has_feature(objc_arc)
     [super dealloc];
@@ -22,6 +24,11 @@
 {
     if (self = [super initWithFrame:frameRect]) {
         _showFill = YES;
+        _showDashedLine = YES;
+        _lineWidth = 2.0f;
+        _lineDashWidth = 12.0f;
+        self.lineColor1 = [NSColor blackColor];
+        self.lineColor2 = [NSColor whiteColor];
         self.fillColor = [NSColor colorWithCalibratedWhite:1.0f alpha:0.25f];
     }
     return self;

@@ -34,6 +34,8 @@ static NSString* const kSubviewsKeypath = @"subviews";
 - (void)dealloc;
 {
     [self removeObserver:self forKeyPath:kSubviewsKeypath];
+    self.selectionRectView = nil;
+    self.selectionItemViewPrototype = nil;
     SAFE_ARC_SUPER_DEALLOC();
 }
 
@@ -76,6 +78,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 {
     NSRect rect = [_delegate selectionViewRectForSelection];
     [_selectionRectView setFrame:rect];
+    NSLog(@"%@", _selectionRectView);
 }
 
 - (void)drawItemHighlights;
@@ -116,7 +119,6 @@ static NSString* const kSubviewsKeypath = @"subviews";
 {
     NSMutableArray* array = SAFE_ARC_AUTORELEASE([_subviews mutableCopy]);
     for (NSView* view in _subviews) {
-        // The second call is actuall redundant here but it's here for readability
         if ([view isKindOfClass:[LJSelectionItemView class]] ||
             [view isKindOfClass:[LJSelectionRectView class]]) {
             [array removeObject:view];
