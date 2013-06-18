@@ -34,6 +34,14 @@
     return self;
 }
 
+- (NSView *)hitTest:(NSPoint)aPoint;
+{
+    /*
+     * Ignore mouse events completely
+     */
+    return nil;
+}
+
 - (void)drawRect:(NSRect)dirtyRect;
 {
     NSBezierPath* path = [NSBezierPath bezierPathWithRect:NSInsetRect(self.bounds, self.lineWidth/2.0f, self.lineWidth/2.0f)];
