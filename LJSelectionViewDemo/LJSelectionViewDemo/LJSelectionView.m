@@ -67,7 +67,7 @@ static NSString* const kSubviewsKeypath = @"subviews";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {    
-    if ([keyPath isEqual:@"subviews"]) {
+    if ([keyPath isEqual:kSubviewsKeypath]) {
         [_delegate selectionViewDidUpdateSubviews];
     }
 }

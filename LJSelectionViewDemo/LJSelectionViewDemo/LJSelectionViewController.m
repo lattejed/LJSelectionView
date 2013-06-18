@@ -30,7 +30,7 @@
 
 - (void)dealloc;
 {
-    self.selectionView = nil;
+    self.undoManager = nil;
     self.selectedItems = nil;
     SAFE_ARC_SUPER_DEALLOC();
 }
