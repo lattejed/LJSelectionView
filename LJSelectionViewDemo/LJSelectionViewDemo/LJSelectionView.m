@@ -78,7 +78,6 @@ static NSString* const kSubviewsKeypath = @"subviews";
 {
     NSRect rect = [_delegate selectionViewRectForSelection];
     [_selectionRectView setFrame:rect];
-    NSLog(@"%@", _selectionRectView);
 }
 
 - (void)drawItemHighlights;
